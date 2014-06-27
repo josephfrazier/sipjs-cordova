@@ -1,3 +1,6 @@
 [submodule "phonertc"]
 	path = phonertc
 	url = https://github.com/alongubkin/phonertc
+[submodule "SIP.js"]
+	path = SIP.js
+	url = https://github.com/onsip/SIP.js

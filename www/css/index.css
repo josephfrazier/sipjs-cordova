@@ -57,6 +57,11 @@ body {
     padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
     margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
                                    /* offset horizontal: half of text area width */
+    left: 0;
+    top: 0;
+    height:  100%;
+    width:  100%;
+    margin:  0;
 }
 
 /* Landscape layout (with min-width) */

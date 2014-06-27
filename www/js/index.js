@@ -34,26 +34,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-
-        var phonertc = cordova.require('com.dooble.phonertc.PhoneRTC');
-
-        phonertc.call({
-            isInitator: true, // Caller or callee?
-            turn: {
-                host: 'turn:turn.example.com:3478',
-                username: 'user',
-                password: 'pass'
-            },
-            sendMessageCallback: function (data) {
-                alert(JSON.stringify(data, null, 2));
-            },
-            answerCallback: function () {
-                alert('Callee answered!');
-            },
-            disconnectCallback: function () {
-                alert('Call disconnected!');
-            }
-        });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
