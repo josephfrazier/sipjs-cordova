@@ -13,5 +13,6 @@ working: init
 	cordova run
 
 init:
+	-mkdir platforms plugins merges
 	git submodule update --init
 	-cordova platform add android
