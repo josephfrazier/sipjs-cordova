@@ -86,7 +86,20 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
       this.phonertc.localSdp = data.sdp;
     }
     else if (data.type === 'candidate') {
-      this.phonertc.localSdp += data.candidate;
+      // Video comes before audio
+      if (this.phonertc.localSdp.indexOf('m=video') < this.phonertc.localSdp.indexOf('m=audio')) {
+        if (data.id === 'video') {
+          this.phonertc.localSdp = this.phonertc.localSdp.replace(/m=audio.*/,data.candidate+"$&");
+        } else {
+          this.phonertc.localSdp += data.candidate;
+        }
+      } else {
+        if(data.id === 'audio') {
+          this.phonertc.localSdp = this.phonertc.localSdp.replace(/m=video.*/,data.candidate+"$&");
+        } else {
+          this.phonertc.localSdp += data.candidate;
+        }
+      }
     }
   }},
 
