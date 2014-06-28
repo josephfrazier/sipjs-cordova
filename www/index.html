@@ -65,7 +65,24 @@
                   return new PhoneRTCMediaHandler(session, options);
                 }
               });
-              window.session = window.ua.invite($('#target').value);
+
+              window.session = window.ua.invite($('#target').value, {
+                media: {
+                  constraints: {
+                    audio: true,
+                    video: true
+                  },
+                  render: {
+                    local: {
+                      video: $('#localVideo')
+                    },
+                    remote: {
+                      video: $('#remoteVideo')
+                    }
+                  }
+                }
+              });
+
               window.session.on('terminated', function () {window.session = null;});
 
               // adapted from http://stackoverflow.com/a/5150556

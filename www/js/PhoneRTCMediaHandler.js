@@ -66,7 +66,7 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
                     onFailure = onFailure;
                     mediaHint = mediaHint;
     if (!this.phonertc.role) {
-      this.phonertcCall('caller');
+      this.phonertcCall('caller', mediaHint);
     }
 
     var pcDelay = 5000;
@@ -103,10 +103,11 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
     }
   }},
 
-  phonertcCall: {writable: true, value: function phonertcCall (role) {
+  phonertcCall: {writable: true, value: function phonertcCall (role, mediaHint) {
     this.logger.log("XXX phonertcCall: " + role);
     this.phonertc.role = role;
-    cordova.plugins.phonertc.call({
+
+    var callOptions = {
       isInitator: role === 'caller', // Caller or callee?
       turn: {
         host: 'turn:turn.example.com:3478',
@@ -119,12 +120,26 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
       },
       disconnectCallback: function () {
         window.alert('Call disconnected!');
-      },
-      video: {
-        localVideo: document.querySelector('#localVideo'),
-        remoteVideo: document.querySelector('#remoteVideo')
       }
-    });
+    };
+
+    if (mediaHint && mediaHint.constraints && mediaHint.constraints.video) {
+      callOptions.video = {};
+
+      if (mediaHint.render) {
+        var localVideo = mediaHint.render.local && mediaHint.render.local.video;
+        if (localVideo) {
+          callOptions.video.localVideo = localVideo;
+        }
+
+        var remoteVideo = mediaHint.render.remote && mediaHint.render.remote.video;
+        if (remoteVideo) {
+          callOptions.video.remoteVideo = remoteVideo;
+        }
+      }
+    }
+
+    cordova.plugins.phonertc.call(callOptions);
   }},
 
   /**
