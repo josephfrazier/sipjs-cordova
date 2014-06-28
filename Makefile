@@ -1,9 +1,10 @@
-test: build
+test:
+	cordova build
+	make run
+
+run:
 	cordova run
 	adb logcat
-
-build: plugin sip
-	cordova build
 
 plugin:
 	-cordova plugin remove com.dooble.phonertc
@@ -16,3 +17,5 @@ init:
 	mkdir -p platforms plugins merges
 	git submodule update --init
 	-cordova platform add android
+	make plugin
+	make sip
