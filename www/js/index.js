@@ -34,6 +34,8 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        document.removeEventListener("touchmove", cordova.plugins.phonertc.updateVideoPosition);
+        window.addEventListener("orientationchange", cordova.plugins.phonertc.updateVideoPosition);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
