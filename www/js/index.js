@@ -61,7 +61,7 @@ var app = {
 
     function makeCall (e) {
       if (window.session) {
-        console.log('only one call at a time');
+        alert('only one call at a time');
         return;
       }
 
