@@ -39,18 +39,31 @@ var app = {
 
     var $ = document.querySelector.bind(document);
 
-    $('#phone').addEventListener('submit', function (e) {
+    window.ua = new SIP.UA({
+      traceSip: true,
+      mediaHandlerFactory: function defaultFactory (session, options) {
+        return new PhoneRTCMediaHandler(session, options);
+      }
+    });
+
+    function eatEvent (listener) {
+      return function (e) {
+        listener.call(this, e);
+
+        // adapted from http://stackoverflow.com/a/5150556
+        if (e.preventDefault) {
+           e.preventDefault();
+        }
+        e.returnValue = false; // for IE
+        return false;
+      }.bind(this);
+    }
+
+    function makeCall (e) {
       if (window.session) {
-        console.warn('only one call at a time');
+        console.log('only one call at a time');
         return;
       }
-
-      window.ua = window.ua || new SIP.UA({
-        traceSip: true,
-        mediaHandlerFactory: function defaultFactory (session, options) {
-          return new PhoneRTCMediaHandler(session, options);
-        }
-      });
 
       window.session = window.ua.invite($('#target').value, {
         media: {
@@ -70,21 +83,17 @@ var app = {
       });
 
       window.session.on('terminated', function () {window.session = null;});
+    }
 
-      // adapted from http://stackoverflow.com/a/5150556
-      if (e.preventDefault) {
-         e.preventDefault();
-      }
-      e.returnValue = false; // for IE
-      return false;
-    }, false);
-
-    $('#hangup').addEventListener('click', function (e) {
+    function onHangup () {
       if (window.session) {
         window.session.terminate();
         window.session = null;
       }
-    }, false);
+    }
+
+    $('#phone').addEventListener('submit', eatEvent(makeCall), false);
+    $('#hangup').addEventListener('click', onHangup, false);
   },
   // Update DOM on a Received Event
   receivedEvent: function(id) {
