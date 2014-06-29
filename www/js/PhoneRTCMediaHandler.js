@@ -116,10 +116,10 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
       },
       sendMessageCallback: this.phonertcSendMessageCallback.bind(this),
       answerCallback: function () {
-        window.alert('Callee answered!');
+        console.log('Callee answered!');
       },
       disconnectCallback: function () {
-        window.alert('Call disconnected!');
+        console.log('Call disconnected!');
       }
     };
 
