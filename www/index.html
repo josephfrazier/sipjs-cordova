@@ -48,58 +48,6 @@
         <script type="text/javascript" src="js/PhoneRTCMediaHandler.js"></script>
         <script type="text/javascript">
             app.initialize();
-
-            var $ = document.querySelector.bind(document);
-
-            // SIP.js refuses to work otherwise
-            SIP.WebRTC.isSupported = true;
-
-            $('#phone').addEventListener('submit', function (e) {
-              if (window.session) {
-                console.warn('only one call at a time');
-                return;
-              }
-
-              window.ua = window.ua || new SIP.UA({
-                traceSip: true,
-                mediaHandlerFactory: function defaultFactory (session, options) {
-                  return new PhoneRTCMediaHandler(session, options);
-                }
-              });
-
-              window.session = window.ua.invite($('#target').value, {
-                media: {
-                  constraints: {
-                    audio: true,
-                    video: $('#useVideo').checked
-                  },
-                  render: {
-                    local: {
-                      video: $('#localVideo')
-                    },
-                    remote: {
-                      video: $('#remoteVideo')
-                    }
-                  }
-                }
-              });
-
-              window.session.on('terminated', function () {window.session = null;});
-
-              // adapted from http://stackoverflow.com/a/5150556
-              if (e.preventDefault) {
-                 e.preventDefault();
-              }
-              e.returnValue = false; // for IE
-              return false;
-            }, false);
-
-            $('#hangup').addEventListener('click', function (e) {
-              if (window.session) {
-                window.session.terminate();
-                window.session = null;
-              }
-            }, false);
         </script>
     </body>
 </html>
