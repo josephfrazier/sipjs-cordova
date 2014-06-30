@@ -1,4 +1,4 @@
-test:
+test: plugin
 	cordova build
 	make run
 
@@ -17,5 +17,4 @@ init:
 	mkdir -p platforms plugins merges
 	git submodule update --init
 	-cordova platform add android
-	make plugin
 	make sip
