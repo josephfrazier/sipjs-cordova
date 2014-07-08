@@ -46,6 +46,11 @@ var PhoneRTCMediaHandler = function(session, options) {
 };
 
 PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
+  render: {writable: true, value: function render () {
+    // the PhoneRTC plugin currently takes care of rendering
+    // but this needs to be defined since SIP.js calls it
+  }},
+
 // Functions the session can use
   isReady: {writable: true, value: function isReady () {
     return this.ready;
