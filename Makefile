@@ -18,3 +18,6 @@ init:
 	git submodule update --init
 	-cordova platform add android
 	make sip
+
+debug: plugin
+	ant -verbose debug -f "platforms/android/build.xml"
