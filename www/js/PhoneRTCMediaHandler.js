@@ -74,15 +74,14 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
       this.phonertcCall('caller', mediaHint);
     }
 
-    var pcDelay = 5000;
-    setTimeout(function () {
+    this.phonertc.onIceGatheringComplete = function () {
       var sdp = this.phonertc.localSdp;
       if (this.phonertc.role !== 'caller') {
         sdp = sdp.replace('a=setup:actpass', 'a=setup:passive');
       }
       sdp = sdp.replace(/a=crypto.*\r\n/g, '');
       onSuccess(sdp);
-    }.bind(this), pcDelay);
+    }.bind(this);
   }},
 
   phonertcSendMessageCallback: {writable: true, value: function phonertcSendMessageCallback (data) {
@@ -105,6 +104,13 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
         } else {
           this.phonertc.localSdp += candidate;
         }
+      }
+    }
+    else if (data.type === 'IceGatheringChange') {
+      if (data.state === "COMPLETE" && this.phonertc.onIceGatheringComplete) {
+        this.phonertc.onIceGatheringComplete();
+        // make sure this only gets called once
+        this.phonertc.onIceGatheringComplete = null;
       }
     }
   }},
@@ -164,8 +170,7 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
 
     if (!this.phonertc.role) {
       this.phonertcCall('callee');
-      var pcDelay = 5000;
-      setTimeout(setRemoteDescription.bind(this, 'offer', sdp), pcDelay);
+      this.phonertc.onIceGatheringComplete = setRemoteDescription.bind(this, 'offer', sdp);
     }
     else if (this.phonertc.role = 'caller') {
       setRemoteDescription.call(this, 'answer', sdp);
