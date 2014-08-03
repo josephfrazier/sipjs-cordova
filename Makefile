@@ -1,4 +1,4 @@
-test: plugin
+test: plugin build
 	cordova build
 	make run
 
@@ -9,6 +9,9 @@ run:
 plugin:
 	-cordova plugin remove com.dooble.phonertc
 	cordova plugin add phonertc
+
+build:
+	cp src/js/* www/js
 
 sip:
 	cd sip.js && npm install && grunt build && cp dist/sip.js ../www/js/sip.js
