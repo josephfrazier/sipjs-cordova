@@ -1,3 +1,6 @@
 [submodule "phonertc"]
 	path = phonertc
 	url = https://github.com/joseph-onsip/phonertc
+[submodule "src/js/PhoneRTCMediaHandler"]
+	path = src/js/PhoneRTCMediaHandler
+	url = https://github.com/joseph-onsip/PhoneRTCMediaHandler
