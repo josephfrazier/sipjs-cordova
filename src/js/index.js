@@ -44,9 +44,7 @@ var app = {
 
     window.ua = new SIP.UA({
       traceSip: true,
-      mediaHandlerFactory: function defaultFactory (session, options) {
-        return new PhoneRTCMediaHandler(session, options);
-      }
+      mediaHandlerFactory: PhoneRTCMediaHandler
     });
 
     function eatEvent (listener) {
