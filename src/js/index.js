@@ -1,5 +1,5 @@
 var SIP = require('sip.js');
-var PhoneRTCMediaHandler = require('./PhoneRTCMediaHandler');
+var PhoneRTCMediaHandler = require('./PhoneRTCMediaHandler')(SIP);
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
