@@ -1,3 +1,5 @@
+var SIP = require('sip.js');
+
 var PhoneRTCMediaHandler = function(session, options) {
   var events = [
   ];
@@ -190,3 +192,5 @@ PhoneRTCMediaHandler.prototype = Object.create(SIP.MediaHandler.prototype, {
             options = options;
   }},
 });
+
+module.exports = PhoneRTCMediaHandler;

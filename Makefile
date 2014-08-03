@@ -11,16 +11,13 @@ plugin:
 	cordova plugin add phonertc
 
 build:
-	cp src/js/* www/js
-
-sip:
-	cd sip.js && npm install && grunt build && cp dist/sip.js ../www/js/sip.js
+	npm test
 
 init:
+	npm install
 	mkdir -p platforms plugins merges
 	git submodule update --init
 	-cordova platform add android
-	make sip
 
 debug: plugin
 	ant -verbose debug -f "platforms/android/build.xml"
