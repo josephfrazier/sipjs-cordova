@@ -1,0 +1,21 @@
+{
+  "name": "sipjs-cordova",
+  "version": "0.0.0",
+  "description": "A proof-of-concept Cordova app that uses SIP.js with the PhoneRTC plugin to make WebRTC calls over the internet.",
+  "main": " ",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/joseph-onsip/sipjs-cordova.git"
+  },
+  "author": "Joseph Frazier <joseph@onsip.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joseph-onsip/sipjs-cordova/issues"
+  },
+  "homepage": "https://github.com/joseph-onsip/sipjs-cordova"
+}
