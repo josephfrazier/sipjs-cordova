@@ -4,12 +4,6 @@
   "description": "A proof-of-concept Cordova app that uses SIP.js with the PhoneRTC plugin to make WebRTC calls over the internet.",
   "main": " ",
   "dependencies": {},
-  "devDependencies": {
-    "browserify": "^5.9.1"
-  },
-  "scripts": {
-    "test": "browserify src/js/index.js -s app -o www/js/index.js"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/joseph-onsip/sipjs-cordova.git"

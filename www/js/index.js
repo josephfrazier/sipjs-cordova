@@ -108,5 +108,3 @@ var app = {
     console.log('Received Event: ' + id);
   }
 };
-
-module.exports = app;
