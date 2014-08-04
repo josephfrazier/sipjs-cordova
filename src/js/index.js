@@ -1,6 +1,3 @@
-var SIP = require('sip.js');
-var PhoneRTCMediaHandler = require('./PhoneRTCMediaHandler')(SIP);
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -36,6 +33,9 @@ var app = {
   // The scope of 'this' is the event. In order to call the 'receivedEvent'
   // function, we must explicity call 'app.receivedEvent(...);'
   onDeviceReady: function() {
+    var SIP = cordova.require('com.onsip.sipjs.sipjs');
+    var PhoneRTCMediaHandler = cordova.require('com.sipjs.phonertc.mediahandler')(SIP);
+
     app.receivedEvent('deviceready');
     document.removeEventListener("touchmove", cordova.plugins.phonertc.updateVideoPosition);
     window.addEventListener("orientationchange", cordova.plugins.phonertc.updateVideoPosition);
