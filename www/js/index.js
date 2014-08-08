@@ -47,9 +47,11 @@ var app = {
       mediaHandlerFactory: PhoneRTCMediaHandler
     });
 
+    window.ua.on('invite', makeCall);
+
     function eatEvent (listener) {
       return function (e) {
-        listener.call(this, e);
+        listener.apply(this, [].slice.call(arguments, 1));
 
         // adapted from http://stackoverflow.com/a/5150556
         if (e.preventDefault) {
@@ -60,13 +62,13 @@ var app = {
       }.bind(this);
     }
 
-    function makeCall (e) {
+    function makeCall (session) {
       if (window.session) {
         alert('only one call at a time');
         return;
       }
 
-      window.session = window.ua.invite($('#target').value, {
+      var options = {
         media: {
           constraints: {
             audio: true,
@@ -81,7 +83,15 @@ var app = {
             }
           }
         }
-      });
+      };
+
+      if (session) {
+        session.accept(options);
+        window.session = session;
+      }
+      else {
+        window.session = window.ua.invite($('#target').value, options);
+      }
 
       window.session.on('terminated', function () {window.session = null;});
     }
