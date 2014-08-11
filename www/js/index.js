@@ -37,7 +37,6 @@ var app = {
     var PhoneRTCMediaHandler = cordova.require('com.sipjs.phonertc.mediahandler')(SIP);
 
     app.receivedEvent('deviceready');
-    document.removeEventListener("touchmove", cordova.plugins.phonertc.updateVideoPosition);
     window.addEventListener("orientationchange", cordova.plugins.phonertc.updateVideoPosition);
 
     var $ = document.querySelector.bind(document);
