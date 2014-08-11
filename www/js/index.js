@@ -92,8 +92,14 @@ var app = {
         window.session = window.ua.invite($('#target').value, options);
       }
 
-      window.session.on('terminated', function () {window.session = null;});
+      setupEventListeners(null, window.session);
     }
+
+    function setupEventListeners (request, session) {
+      session.on('refer', session.followRefer(setupEventListeners));
+      session.on('terminated', function () {window.session = null;});
+    }
+
 
     function onHangup () {
       if (window.session) {
