@@ -1,4 +1,4 @@
-build: plugin build
+build: plugin
 	cordova build
 	make run
 
