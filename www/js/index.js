@@ -34,7 +34,7 @@ var app = {
   // function, we must explicity call 'app.receivedEvent(...);'
   onDeviceReady: function() {
     var SIP = cordova.require('com.onsip.sipjs.sipjs');
-    var PhoneRTCMediaHandler = cordova.require('com.sipjs.phonertc.mediahandler')(SIP);
+    var PhoneRTCMediaHandler = cordova.require('com.dooble.phonertc.PhoneRTC');
 
     app.receivedEvent('deviceready');
     window.addEventListener("orientationchange", cordova.plugins.phonertc.updateVideoPosition);

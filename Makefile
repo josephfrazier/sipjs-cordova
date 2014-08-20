@@ -9,8 +9,6 @@ run:
 plugin:
 	-cordova plugin remove com.dooble.phonertc
 	cordova plugin add phonertc
-	-cordova plugin remove com.sipjs.phonertc
-	cordova plugin add src/js/PhoneRTCMediaHandler
 
 init:
 	npm install
